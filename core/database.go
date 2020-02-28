@@ -25,6 +25,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	_ "github.com/jinzhu/gorm/dialects/mssql"
 	"os"
 	"path/filepath"
 	"time"
@@ -378,6 +379,8 @@ func (c *Core) CreateDatabase() error {
 	var err error
 	log.Infoln("Creating Database Tables...")
 	for _, table := range DbModels {
+		log.Infoln(fmt.Sprintf("Creating Database %v", table))
+
 		if err := DbSession.CreateTable(table); err.Error != nil {
 			return err.Error
 		}

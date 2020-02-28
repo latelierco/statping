@@ -41,6 +41,9 @@ $('select#database_type').on('change', function(){
     } else if (selected=="postgres") {
         $("#db_port_in").val('5432');
     }
+    else if (selected=="mssql") {
+        $("#db_port_in").val('1433');
+    }
 
 });
 
