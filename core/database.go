@@ -367,6 +367,7 @@ func (c *Core) DropDatabase() error {
 	err = DbSession.DropTableIfExists("failures")
 	err = DbSession.DropTableIfExists("hits")
 	err = DbSession.DropTableIfExists("services")
+	err = DbSession.DropTableIfExists("groups")
 	err = DbSession.DropTableIfExists("users")
 	err = DbSession.DropTableIfExists("messages")
 	err = DbSession.DropTableIfExists("incidents")

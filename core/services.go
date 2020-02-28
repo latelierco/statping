@@ -245,6 +245,8 @@ func Dbtimestamp(group string, column string) string {
 		return fmt.Sprintf("CONCAT(date_format(created_at, '%%Y-%%m-%%d %%H:00:00')) AS timeframe, AVG(%v) AS value", column)
 	case "postgres":
 		return fmt.Sprintf("date_trunc('%v', created_at) AS timeframe, AVG(%v) AS value", group, column)
+	case "mssql":
+		return fmt.Sprintf("timeframe, AVG(value) AS value FROM (SELECT FORMAT(created_at, 'dd/MM/yyyy HH:00:00', 'en-US') AS timeframe, AVG(%v) AS value FROM status.hits GROUP BY FORMAT(created_at, 'dd/MM/yyyy HH:00:00', 'en-US')) as sub", column)
 	default:
 		return fmt.Sprintf("datetime((strftime('%%s', created_at) / %v) * %v, 'unixepoch') AS timeframe, AVG(%v) as value", seconds, seconds, column)
 	}
